@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Banner from "./components/Banner";
 import Header from "./components/Header";
 import OurRecipes from "./components/OurRecipes";
@@ -6,6 +7,16 @@ import Sideber from "./components/Sideber";
 
 
 const App = () => {
+  const [recipeQueue, setRecipeQueue] = useState([])
+
+  const handlerRecipeQueue = (recipe) =>{
+    const isExit = recipeQueue.find(privious => privious.recipe_id === recipe.recipe_id)
+    if(!isExit){
+      setRecipeQueue([...recipeQueue, recipe])
+    }else{
+      alert('Recipe already exists in the queue!!')
+    }
+  }
   return (
     <div className="container mx-auto px-4">
       {/* header  */}
@@ -17,9 +28,9 @@ const App = () => {
       {/* recipes cards section  */}
       <section className="flex flex-col md:flex-row gap-6">
         {/* cards section  */}
-        <Recipes></Recipes>
+        <Recipes handlerRecipeQueue={handlerRecipeQueue}></Recipes>
         {/* sidebar */}
-        <Sideber></Sideber>
+        <Sideber recipeQueue={recipeQueue}></Sideber>
       </section>
     </div>
   );

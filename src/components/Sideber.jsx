@@ -1,9 +1,9 @@
 
 
-const Sideber = () => {
+const Sideber = ({recipeQueue}) => {
     return (
         <div className="md:w-1/3">
-            sidebar
+            Want to cook : {recipeQueue.length}
         </div>
     );
 };

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 
-const Recipes = () => {
+const Recipes = ({handlerRecipeQueue}) => {
     const [recipes, setRecipes] = useState([])
     useEffect(() => {
         fetch('recipes.json')
@@ -39,7 +39,9 @@ const Recipes = () => {
                                 </div>
 
                                 <div className="card-actions ">
-                                    <button className="btn bg-green-400 px-8 text-lg text-gray-800 font-mudium rounded-full">Want To Cook</button>
+                                    <button 
+                                    onClick={() => handlerRecipeQueue(recipe)}
+                                    className="btn bg-green-400 px-8 text-lg text-gray-800 font-mudium rounded-full">Want To Cook</button>
                                 </div>
                             </div>
                         </div>
