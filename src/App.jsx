@@ -8,6 +8,7 @@ import Sideber from "./components/Sideber";
 
 const App = () => {
   const [recipeQueue, setRecipeQueue] = useState([])
+  const [preparedRecipe, setPreparedRecipe] = useState([])
 
   const handlerRecipeQueue = (recipe) =>{
     const isExit = recipeQueue.find(privious => privious.recipe_id === recipe.recipe_id)
@@ -17,6 +18,16 @@ const App = () => {
       alert('Recipe already exists in the queue!!')
     }
   }
+
+  const  handleRemove = (id) => {
+    // find which recipe to remove
+    const removeRecipe = recipeQueue.find(recipe => recipe.recipe_id === id)
+    //remove from want to cook table
+    const updateQueue = recipeQueue.filter(recipe => recipe.recipe_id !== id)
+    setRecipeQueue(updateQueue)
+    setPreparedRecipe([...preparedRecipe, removeRecipe] )
+  }
+
   return (
     <div className="container mx-auto px-4">
       {/* header  */}
@@ -30,7 +41,7 @@ const App = () => {
         {/* cards section  */}
         <Recipes handlerRecipeQueue={handlerRecipeQueue}></Recipes>
         {/* sidebar */}
-        <Sideber recipeQueue={recipeQueue}></Sideber>
+        <Sideber preparedRecipe={preparedRecipe} handleRemove={handleRemove} recipeQueue={recipeQueue}></Sideber>
       </section>
     </div>
   );
