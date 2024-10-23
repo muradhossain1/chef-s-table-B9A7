@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 
 
-const Sideber = ({recipeQueue, handleRemove, preparedRecipe}) => {
+const Sideber = ({recipeQueue, handleRemove, preparedRecipe,  calculators, totalTime, totalCalorie}) => {
     return (
         <div className="md:w-1/3 border rounded-xl text-gray-600 p-2">
         
@@ -26,7 +27,10 @@ const Sideber = ({recipeQueue, handleRemove, preparedRecipe}) => {
                             <td>{recipe.preparing_time}</td>
                             <td>{recipe.calories}</td>
                             <td><button 
-                                    onClick={() => handleRemove(recipe.recipe_id)}
+                                    onClick={() => {
+                                        handleRemove(recipe.recipe_id)
+                                        calculators(recipe.preparing_time, recipe.calories)
+                                    }}
                                     className="btn bg-green-400 px-2 py-1 md:px-6 md:py-2 text-gray-800 my-2 font-mudium rounded-full">Preparing</button></td>
                         </tr>)}
                     </tbody>
@@ -56,8 +60,8 @@ const Sideber = ({recipeQueue, handleRemove, preparedRecipe}) => {
                         <tr className="border-none">
                             <th></th>
                             <td></td>
-                            <td>Total Time = 0</td>
-                            <td>Total Calorie = 0</td>
+                            <td>Total Time = {totalTime}</td>
+                            <td>Total Calorie = {totalCalorie}</td>
                         </tr>
                     </tbody>
                 </table>

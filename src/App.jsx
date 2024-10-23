@@ -9,6 +9,8 @@ import Sideber from "./components/Sideber";
 const App = () => {
   const [recipeQueue, setRecipeQueue] = useState([])
   const [preparedRecipe, setPreparedRecipe] = useState([])
+  const [totalTime, setTotalTime] = useState(0)
+  const [totalCalorie, setTotalCalorie] = useState(0)
 
   const handlerRecipeQueue = (recipe) =>{
     const isExit = recipeQueue.find(privious => privious.recipe_id === recipe.recipe_id)
@@ -18,7 +20,6 @@ const App = () => {
       alert('Recipe already exists in the queue!!')
     }
   }
-
   const  handleRemove = (id) => {
     // find which recipe to remove
     const removeRecipe = recipeQueue.find(recipe => recipe.recipe_id === id)
@@ -26,6 +27,10 @@ const App = () => {
     const updateQueue = recipeQueue.filter(recipe => recipe.recipe_id !== id)
     setRecipeQueue(updateQueue)
     setPreparedRecipe([...preparedRecipe, removeRecipe] )
+  }
+  const calculators = (time, calorie) =>{
+    setTotalTime(totalTime + time)
+    setTotalCalorie(totalCalorie + calorie)
   }
 
   return (
@@ -41,7 +46,13 @@ const App = () => {
         {/* cards section  */}
         <Recipes handlerRecipeQueue={handlerRecipeQueue}></Recipes>
         {/* sidebar */}
-        <Sideber preparedRecipe={preparedRecipe} handleRemove={handleRemove} recipeQueue={recipeQueue}></Sideber>
+        <Sideber 
+         preparedRecipe={preparedRecipe}
+         handleRemove={handleRemove} 
+         recipeQueue={recipeQueue}
+         calculators={calculators}
+         totalTime={totalTime}
+         totalCalorie={totalCalorie}></Sideber>
       </section>
     </div>
   );
